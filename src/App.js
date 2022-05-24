@@ -1,7 +1,10 @@
+import React from 'react'
 import './App.css';
+import NavBar from './components/NavBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  return <h1>Aguante la camada 32105</h1>;
+  return (<NavBar/>);
 }
 
 export default App;
