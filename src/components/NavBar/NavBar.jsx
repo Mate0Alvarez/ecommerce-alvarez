@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -25,9 +25,7 @@ const pages = [
 ];
 const settings = ["Profile", "Logout"];
 
-const quantity = 8;
-
-const NavBar = () => {
+const NavBar = ({cartQuantity}) => {
   return (
     <>
       <CssBaseline />
@@ -38,7 +36,7 @@ const NavBar = () => {
               display: { sm: "flex", md: "none" },
             }}
           >
-            <NavBarMobile navPages={pages} cartQuantity={quantity} />
+            <NavBarMobile navPages={pages} cartQuantity={cartQuantity} />
           </Box>
           <Box
             sx={{
@@ -48,7 +46,7 @@ const NavBar = () => {
             <NavBarDesktop
               pages={pages}
               settings={settings}
-              cartQuantity={quantity}
+              cartQuantity={cartQuantity}
             />
           </Box>
         </Container>
