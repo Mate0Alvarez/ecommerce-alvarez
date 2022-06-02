@@ -9,9 +9,10 @@ import ShoppingCartRounded from "@mui/icons-material/ShoppingCartRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ItemCount from "./ItemCount";
 
-export default function ItemCard({ name, description, stock, price, onAdd, onRemove }) {
+export default function Item({product, onAdd, onRemove }) {
   const [showAdd, setShowAdd] = useState(true);
   const [countItem, setCountItems] = useState(1);
+  const { title, description, pictureUrl, price, stock } = product;
 
   const handleAddToCart = () => {
     setShowAdd(false);
@@ -39,14 +40,17 @@ export default function ItemCard({ name, description, stock, price, onAdd, onRem
         component="img"
         alt="green iguana"
         height="240"
-        image="/monkey1.png"
+        image={pictureUrl}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {name}
+          {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {description}
+        </Typography>
+        <Typography variant="h5" sx={{mt:2}}>
+          {`$${price}`}
         </Typography>
       </CardContent>
       {showAdd ? (
@@ -81,7 +85,7 @@ export default function ItemCard({ name, description, stock, price, onAdd, onRem
             Remove
           </Button>
         )}
-        <Button size="small">Learn More</Button>
+        <Button size="small" color="info">Learn More</Button>
       </CardActions>
     </Card>
   );

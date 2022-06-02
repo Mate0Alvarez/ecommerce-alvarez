@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
-import TextField from "@mui/material/TextField";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -17,7 +16,6 @@ export default function ItemCount({
   addItem,
   removeItem,
 }) {
-
   const addQuantity = () => {
     if (initial < stock) {
       addItem();
@@ -27,8 +25,8 @@ export default function ItemCount({
   };
 
   const subtractQuantity = () => {
-    if (initial>1) {
-        removeItem();
+    if (initial > 1) {
+      removeItem();
     }
   };
 
@@ -50,6 +48,8 @@ export default function ItemCount({
     <Box
       sx={{
         display: "flex",
+        width:"75%",
+        margin: "0 auto",
         alignItems: "center",
         justifyContent: "space-between",
         "& > *": {
@@ -65,14 +65,20 @@ export default function ItemCount({
       >
         <RemoveCircleOutlineOutlinedIcon />
       </IconButton>
-      <TextField
-        disabled
-        id="outlined-basic"
-        label="Quantity"
-        variant="outlined"
-        value={initial}
-        style={{ margin: "0 5px" }}
-      ></TextField>
+      <Box
+        sx={{
+          width: "45px",
+          height: "45px",
+          border: "1px solid",
+          borderRadius: "50%",
+          borderColor: "info.main",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {initial}
+      </Box>
       <IconButton
         key="add"
         aria-label="upload picture"
