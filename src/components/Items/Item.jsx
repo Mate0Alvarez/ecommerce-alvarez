@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -8,15 +9,38 @@ import Typography from "@mui/material/Typography";
 import ShoppingCartRounded from "@mui/icons-material/ShoppingCartRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ItemCount from "./ItemCount";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
-export default function Item({product, onAdd, onRemove }) {
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+export default function Item({ product, onAdd, onRemove }) {
   const [showAdd, setShowAdd] = useState(true);
   const [countItem, setCountItems] = useState(1);
-  const { title, description, pictureUrl, price, stock } = product;
+  const [stockError, setStockError] = useState(false);
+  const { id, title, description, pictureUrl, price, stock } = product;
+  const detailUrl = `/item/${id}`;
+
+  const handleOpenStockError = () => {
+    setStockError(true);
+  };
+
+  const handleCloseStockError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setStockError(false);
+  };
 
   const handleAddToCart = () => {
-    setShowAdd(false);
-    onAdd(countItem);
+    if (stock >= countItem) {
+      setShowAdd(false);
+      onAdd(countItem);
+    } else {
+      handleOpenStockError();
+    }
   };
 
   const handleRemove = () => {
@@ -29,19 +53,14 @@ export default function Item({product, onAdd, onRemove }) {
   };
 
   const handleRemoveItem = () => {
-    if(countItem > 0){
+    if (countItem > 0) {
       setCountItems(countItem - 1);
     }
   };
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="240"
-        image={pictureUrl}
-      />
+      <CardMedia component="img" alt={title} height="240" image={pictureUrl} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
@@ -49,32 +68,47 @@ export default function Item({product, onAdd, onRemove }) {
         <Typography variant="body2" color="text.secondary">
           {description}
         </Typography>
-        <Typography variant="h5" sx={{mt:2}}>
+        <Typography
+          variant="h5"
+          sx={{
+            mt: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           {`$${price}`}
+          {showAdd && (
+            <ItemCount
+              stock={stock}
+              initial={countItem}
+              addItem={handleAddItem}
+              removeItem={handleRemoveItem}
+            />
+          )}
         </Typography>
       </CardContent>
-      {showAdd ? (
-        <CardActions>
-          <ItemCount
-            stock={stock}
-            initial={countItem}
-            addItem={handleAddItem}
-            removeItem={handleRemoveItem}
-          />
-        </CardActions>
-      ) : (
-        <></>
-      )}
+
       <CardActions>
         {showAdd ? (
-          <Button
-            variant="outlined"
-            color="info"
-            startIcon={<ShoppingCartRounded />}
-            onClick={handleAddToCart}
-          >
-            Add to Cart
-          </Button>
+          <>
+            <Button
+              variant="outlined"
+              color="info"
+              startIcon={<ShoppingCartRounded />}
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </Button>
+            <Button size="small" color="info">
+              <Link
+                to={detailUrl}
+                style={{ textDecoration: "none", color: "unset" }}
+              >
+                See More
+              </Link>
+            </Button>
+          </>
         ) : (
           <Button
             variant="contained"
@@ -85,8 +119,20 @@ export default function Item({product, onAdd, onRemove }) {
             Remove
           </Button>
         )}
-        <Button size="small" color="info">Learn More</Button>
       </CardActions>
+      <Snackbar
+        open={stockError}
+        autoHideDuration={2000}
+        onClose={handleCloseStockError}
+      >
+        <Alert
+          onClose={handleCloseStockError}
+          severity="warning"
+          sx={{ width: "100%" }}
+        >
+          Ups! There are not more products in stock
+        </Alert>
+      </Snackbar>
     </Card>
   );
 }

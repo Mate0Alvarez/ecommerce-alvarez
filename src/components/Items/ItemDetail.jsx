@@ -1,29 +1,30 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import Item from "./Item";
+import ItemDetailDescription from "./ItemDetailDescription";
+
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function ItemList({ onAdd, onRemove }) {
+const ItemDetail = ({ onAdd, onRemove }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState({});
+    const { productId } = useParams();
 
     const handleErrorOpen = () => {
         setError(true);
     };
-
     const handleErrorClose = (event, reason) => {
         if (reason === "clickaway") {
             return;
         }
-
         setError(false);
     };
 
@@ -33,16 +34,20 @@ export default function ItemList({ onAdd, onRemove }) {
             .then((result) => {
                 setTimeout(() => {
                     setLoading(false);
-                    setProducts(result);
+                    for (let i = 0; i < result.length; i++) {
+                        if (result[i].id === productId) {
+                            return setProduct(result[i]);
+                        }
+                    }
                 }, 1500);
+
             })
             .catch((error) => {
                 setLoading(false);
                 handleErrorOpen();
                 console.log(error);
             });
-    }, []);
-
+    }, [productId]);
     return (
         <>
             {loading && (
@@ -65,22 +70,24 @@ export default function ItemList({ onAdd, onRemove }) {
                     </Alert>
                 </Snackbar>
             )}
-            {products &&
-                products.map((product) => (
-                    <Grid
-                        item
-                        sm={6}
-                        md={4}
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                        key={product.id}
-                    >
-                        <Item product={product} onAdd={onAdd} onRemove={onRemove} />
+            {!loading && (
+                <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={10}>
+                        <Grid item xs={4}>
+                            <Box
+                                component="img"
+                                alt={product.title}
+                                src={product.pictureUrl}
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <ItemDetailDescription product={product} onAdd={onAdd} onRemove={onRemove} />
+                        </Grid>
                     </Grid>
-                ))}
+                </Box>
+            )}
         </>
-    );
+    )
 }
+
+export default ItemDetail

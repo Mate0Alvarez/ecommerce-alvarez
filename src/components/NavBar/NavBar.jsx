@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -9,18 +10,22 @@ import BakeryDiningOutlinedIcon from "@mui/icons-material/BakeryDiningOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
+const LinkWithoutDec = (props)=>{
+  return <Link {...props} style={{textDecoration:"none", color:"unset"}}>Pieces</Link>
+};
+
 const pages = [
   {
     icon: <BakeryDiningOutlinedIcon />,
-    text: "Pieces",
+    link: <LinkWithoutDec to="/pieces">Pieces</LinkWithoutDec>,
   },
   {
     icon: <AttachMoneyOutlinedIcon />,
-    text: "Pricing",
+    link: <LinkWithoutDec to="/pricing">Pricing</LinkWithoutDec>,
   },
   {
     icon: <InfoOutlinedIcon />,
-    text: "About us",
+    link: <LinkWithoutDec to="/about">About us</LinkWithoutDec>,
   },
 ];
 const settings = ["Profile", "Logout"];

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,18 +6,24 @@ import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 const cartSettings = ["See full cart", "Check Out"];
 
 function CartWidget({ quantity }) {
-  const [anchorElCart, setAnchorElCart] = React.useState(null);
+  const [cartMenu, setCartMenu] = useState(null);
+  const [emptyCartMenu, setEmptyCartMenu] = useState(null);
 
   const handleOpenCartMenu = (event) => {
-    setAnchorElCart(event.currentTarget);
+    if(quantity === 0){
+      return setEmptyCartMenu(event.currentTarget);
+    }
+    return setCartMenu(event.currentTarget);
   };
 
   const handleCloseCartMenu = () => {
-    setAnchorElCart(null);
+    setCartMenu(null);
+    setEmptyCartMenu(null);
   };
   return (
     <>
@@ -31,7 +37,7 @@ function CartWidget({ quantity }) {
       <Menu
         sx={{ mt: "45px" }}
         id="menu-appbar"
-        anchorEl={anchorElCart}
+        anchorEl={emptyCartMenu}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -41,7 +47,27 @@ function CartWidget({ quantity }) {
           vertical: "top",
           horizontal: "right",
         }}
-        open={Boolean(anchorElCart)}
+        open={Boolean(emptyCartMenu)}
+        onClose={handleCloseCartMenu}
+      >
+      <MenuItem onClick={handleCloseCartMenu}>
+        <Typography textAlign="center" sx={{width:170,display:"flex",justifyContent:"space-around", alignItems:"center"}}><span>The cart is empty</span><SentimentVeryDissatisfiedIcon/></Typography>
+      </MenuItem>
+      </Menu>
+      <Menu
+        sx={{ mt: "45px" }}
+        id="menu-appbar"
+        anchorEl={cartMenu}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={Boolean(cartMenu)}
         onClose={handleCloseCartMenu}
       >
         {cartSettings.map((setting) => (

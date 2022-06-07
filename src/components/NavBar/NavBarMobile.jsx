@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -72,18 +73,20 @@ export default function NavBarMobile({ navPages, cartQuantity }) {
             <MenuIcon />
           </IconButton>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Box
-              component="img"
-              sx={{
-                height: 75,
-                display: { xs: "flex", md: "none" },
-                m: 1
-              }}
-              alt="NFT logo."
-              src="./logo_nft.png"
-            />
+            <Link to="/">
+              <Box
+                component="img"
+                sx={{
+                  height: 75,
+                  display: { xs: "flex", md: "none" },
+                  m: 1
+                }}
+                alt="NFT logo."
+                src="/logo_nft.png"
+              />
+            </Link>
           </Box>
-          <Box sx={{ pr: 1}}>
+          <Box sx={{ pr: 1 }}>
             <CartWidget quantity={cartQuantity} />
           </Box>
         </Toolbar>
@@ -116,14 +119,14 @@ export default function NavBarMobile({ navPages, cartQuantity }) {
             <ListItem key={index} disablePadding>
               <ListItemButton>
                 <ListItemIcon>{nav.icon}</ListItemIcon>
-                <ListItemText primary={nav.text} />
+                <ListItemText primary={nav.link} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-        <ListItem disablePadding>
+          <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <NavBarAvatar avatarSettings={[]} />

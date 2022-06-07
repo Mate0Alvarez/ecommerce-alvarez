@@ -75,6 +75,7 @@ export default function ItemCount({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          fontSize: 15
         }}
       >
         {initial}
