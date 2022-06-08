@@ -21,7 +21,7 @@ const pages = [
   },
   {
     icon: <AttachMoneyOutlinedIcon />,
-    link: <LinkWithoutDec to="/cateogries">Categories</LinkWithoutDec>,
+    link: <LinkWithoutDec to="/categories">Categories</LinkWithoutDec>,
   },
   {
     icon: <InfoOutlinedIcon />,
