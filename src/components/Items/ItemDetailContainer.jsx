@@ -12,6 +12,7 @@ const ItemDetailContainer = ({ onAdd, onRemove }) => {
                 width: "90%",
                 margin: "auto",
                 mt: { sm: "105px", xs: "55px", md: "55px" },
+                minHeight: "80vh"
             }}
         >
             <Grid container spacing={2} sx={{ justifyContent: { xs: "center" }, minHeight: "630px" }}>

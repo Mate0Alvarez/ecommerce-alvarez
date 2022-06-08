@@ -58,27 +58,27 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
     return (
         <Card
             sx={{
-                minWidth: 275,
-                height: 400,
-                padding: "0 30px",
+                height: {sm:"unset", md:400},
+                width: {xs:"90%",sm:400},
+                padding: "0 10px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "start",
                 justifyContent: "start"
             }}
         >
-            <CardContent sx={{ mt: 4 }}>
+            <CardContent sx={{ mt: 1 }}>
                 <Typography variant="h4" component="div">
                     {title}
                 </Typography>
                 <Typography variant="body1" sx={{ mt: 2, mb: 2 }}>
                     {description_long}
                 </Typography>
-            </CardContent>
-            <CardActions sx={{mt:2, ml:1}}>
                 <Typography variant="h5" sx={{ mr: 3 }}>
                     {`$${price}`}
                 </Typography>
+            </CardContent>
+            <CardActions>
                 {showAdd ? (
                     <>
                         <ItemCount

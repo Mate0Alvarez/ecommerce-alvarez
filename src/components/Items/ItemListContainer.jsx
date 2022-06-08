@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import ItemList from "./ItemList";
 
-const ItemListContainer = ({ onAdd, onRemove ,category = false}) => {
+const ItemListContainer = ({ onAdd, onRemove, category = false }) => {
   return (
     <Container
       maxWidth="xl"
@@ -12,10 +12,11 @@ const ItemListContainer = ({ onAdd, onRemove ,category = false}) => {
         width: "90%",
         margin: "auto",
         mt: { sm: "105px", xs: "55px", md: "15px" },
+        minHeight: "85vh"
       }}
     >
-      <Grid container spacing={2} sx={{ justifyContent: { xs: "center" }, minHeight : "630px" }}>
-        <ItemList onAdd={onAdd} onRemove={onRemove} category={category}/>
+      <Grid container spacing={2} sx={{ justifyContent: { xs: "center" }, minHeight: "630px" }}>
+        <ItemList onAdd={onAdd} onRemove={onRemove} category={category} />
       </Grid>
     </Container>
   );

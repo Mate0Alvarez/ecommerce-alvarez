@@ -51,7 +51,7 @@ function CartWidget({ quantity }) {
         onClose={handleCloseCartMenu}
       >
       <MenuItem onClick={handleCloseCartMenu}>
-        <Typography textAlign="center" sx={{width:170,display:"flex",justifyContent:"space-around", alignItems:"center"}}><span>The cart is empty</span><SentimentVeryDissatisfiedIcon/></Typography>
+        <Typography textAlign="center" sx={{width:170,display:"flex",justifyContent:"space-around", alignItems:"center"}}><span>Your cart is empty</span><SentimentVeryDissatisfiedIcon/></Typography>
       </MenuItem>
       </Menu>
       <Menu

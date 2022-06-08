@@ -11,7 +11,7 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const LinkWithoutDec = (props)=>{
-  return <Link {...props} style={{textDecoration:"none", color:"unset"}}>Pieces</Link>
+  return <Link {...props} style={{textDecoration:"none", color:"unset"}}></Link>
 };
 
 const pages = [
@@ -21,7 +21,7 @@ const pages = [
   },
   {
     icon: <AttachMoneyOutlinedIcon />,
-    link: <LinkWithoutDec to="/pricing">Pricing</LinkWithoutDec>,
+    link: <LinkWithoutDec to="/cateogries">Categories</LinkWithoutDec>,
   },
   {
     icon: <InfoOutlinedIcon />,

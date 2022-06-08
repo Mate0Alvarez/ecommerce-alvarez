@@ -72,15 +72,21 @@ const ItemDetail = ({ onAdd, onRemove }) => {
             )}
             {!loading && (
                 <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={10}>
-                        <Grid item xs={4}>
+                    <Grid container spacing={2} sx={{display:"flex",justifyContent:"center", alignItems:"center", mt:3}}>
+                        <Grid item sm={10} md={4} sx={{display:"flex",justifyContent:"center", alignItems:"center"}}>
                             <Box
+                                sx={{
+                                    width:{
+                                        xs:"90%",
+                                        sm:400
+                                    }
+                                }}
                                 component="img"
                                 alt={product.title}
                                 src={product.pictureUrl}
                             />
                         </Grid>
-                        <Grid item xs={8}>
+                        <Grid item sm={10} md={4} sx={{display:"flex",justifyContent:"center", alignItems:"center"}}>
                             <ItemDetailDescription product={product} onAdd={onAdd} onRemove={onRemove} />
                         </Grid>
                     </Grid>
