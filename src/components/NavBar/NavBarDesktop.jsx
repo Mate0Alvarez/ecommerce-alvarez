@@ -25,7 +25,7 @@ const NavBarDesktop = ({ pages, settings, cartQuantity }) => {
             display: { xs: "none", md: "flex" },
           }}
           alt="NFT Commerce logo."
-          src="/nft_logo.svg"
+          src="/logo.svg"
         />
       </Link>
 

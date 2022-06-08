@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Grid from "@mui/material/Grid";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import Grid from "@mui/material/Grid";
+import Snackbar from "@mui/material/Snackbar";
+import React, { useEffect, useState } from "react";
 import Item from "./Item";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function ItemList({ onAdd, onRemove }) {
+export default function ItemList({ onAdd, onRemove, category }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [products, setProducts] = useState([]);
@@ -28,12 +28,22 @@ export default function ItemList({ onAdd, onRemove }) {
     };
 
     useEffect(() => {
-        fetch("https://mocki.io/v1/963f0a45-43f3-4249-be6f-da7d4edb9721")
+        fetch("https://mocki.io/v1/e610ac09-f815-4219-8b0f-32d73743e81d")
             .then((response) => response.json())
             .then((result) => {
                 setTimeout(() => {
+                    if (category === false) {
+                        setLoading(false);
+                        return setProducts(result);
+                    }
+                    let categoryProducts = [];
+                    for (let i = 0; i < result.length; i++) {
+                        if (result[i].category_id === +category) {
+                            categoryProducts.push(result[i]);
+                        }
+                    }
                     setLoading(false);
-                    setProducts(result);
+                    return setProducts(categoryProducts);
                 }, 1500);
             })
             .catch((error) => {
@@ -41,7 +51,7 @@ export default function ItemList({ onAdd, onRemove }) {
                 handleErrorOpen();
                 console.log(error);
             });
-    }, []);
+    }, [category]);
 
     return (
         <>

@@ -82,7 +82,7 @@ export default function NavBarMobile({ navPages, cartQuantity }) {
                   m: 1
                 }}
                 alt="NFT logo."
-                src="/logo_nft.png"
+                src="/icon.svg"
               />
             </Link>
           </Box>

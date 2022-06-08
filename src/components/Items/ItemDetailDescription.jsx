@@ -18,7 +18,7 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
     const [showAdd, setShowAdd] = useState(true);
     const [countItem, setCountItems] = useState(1);
     const [stockError, setStockError] = useState(false);
-    const { title, description, price, stock } = product;
+    const { title, description_long, price, stock } = product;
 
     const handleOpenStockError = () => {
         setStockError(true);
@@ -72,10 +72,7 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
                     {title}
                 </Typography>
                 <Typography variant="body1" sx={{ mt: 2, mb: 2 }}>
-                    {description}
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 2}}>
-                    {description}
+                    {description_long}
                 </Typography>
             </CardContent>
             <CardActions sx={{mt:2, ml:1}}>

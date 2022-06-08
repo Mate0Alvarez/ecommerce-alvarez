@@ -20,7 +20,7 @@ export default function Item({ product, onAdd, onRemove }) {
   const [showAdd, setShowAdd] = useState(true);
   const [countItem, setCountItems] = useState(1);
   const [stockError, setStockError] = useState(false);
-  const { id, title, description, pictureUrl, price, stock } = product;
+  const { id, title, description_short, pictureUrl, price, stock } = product;
   const detailUrl = `/item/${id}`;
 
   const handleOpenStockError = () => {
@@ -66,7 +66,7 @@ export default function Item({ product, onAdd, onRemove }) {
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {description}
+          {description_short}
         </Typography>
         <Typography
           variant="h5"

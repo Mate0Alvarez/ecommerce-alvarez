@@ -29,7 +29,7 @@ const ItemDetail = ({ onAdd, onRemove }) => {
     };
 
     useEffect(() => {
-        fetch("https://mocki.io/v1/963f0a45-43f3-4249-be6f-da7d4edb9721")
+        fetch("https://mocki.io/v1/e610ac09-f815-4219-8b0f-32d73743e81d")
             .then((response) => response.json())
             .then((result) => {
                 setTimeout(() => {
