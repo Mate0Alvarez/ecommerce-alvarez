@@ -4,6 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
 import NavBarMobile from "./NavBarMobile";
 import NavBarDesktop from "./NavBarDesktop";
 import BakeryDiningOutlinedIcon from "@mui/icons-material/BakeryDiningOutlined";
@@ -18,14 +19,17 @@ const pages = [
   {
     icon: <BakeryDiningOutlinedIcon />,
     link: <LinkWithoutDec to="/pieces">Pieces</LinkWithoutDec>,
+    link_desktop: <Button sx={{ my: 2, color: "white", display: "block" }}><LinkWithoutDec to="/pieces">Pieces</LinkWithoutDec></Button>
   },
   {
     icon: <AttachMoneyOutlinedIcon />,
     link: <LinkWithoutDec to="/categories">Categories</LinkWithoutDec>,
+    link_desktop: <Button sx={{ my: 2, color: "white", display: "block" }}><LinkWithoutDec to="/categories">Categories</LinkWithoutDec></Button>
   },
   {
     icon: <InfoOutlinedIcon />,
     link: <LinkWithoutDec to="/about">About us</LinkWithoutDec>,
+    link_desktop: <Button sx={{ my: 2, color: "white", display: "block" }}><LinkWithoutDec to="/about">About us</LinkWithoutDec></Button>
   },
 ];
 const settings = ["Profile", "Logout"];

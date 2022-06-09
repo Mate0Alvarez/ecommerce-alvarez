@@ -1,4 +1,5 @@
 import MuiAlert from "@mui/material/Alert";
+import { Navigate  } from "react-router-dom";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
@@ -74,6 +75,9 @@ export default function ItemList({ onAdd, onRemove, category }) {
                         Sorry, something happened loading the products
                     </Alert>
                 </Snackbar>
+            )}
+            {(!loading && (products.length === 0)) && (
+                <Navigate to="/notFound" replace={true} />
             )}
             {products &&
                 products.map((product) => (

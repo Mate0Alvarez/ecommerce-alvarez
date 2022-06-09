@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate  } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -16,7 +16,7 @@ const ItemDetail = ({ onAdd, onRemove }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [product, setProduct] = useState({});
-    const { productId } = useParams();
+    const { id }  = useParams();
 
     const handleErrorOpen = () => {
         setError(true);
@@ -29,16 +29,18 @@ const ItemDetail = ({ onAdd, onRemove }) => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetch("https://mocki.io/v1/e610ac09-f815-4219-8b0f-32d73743e81d")
             .then((response) => response.json())
             .then((result) => {
                 setTimeout(() => {
-                    setLoading(false);
                     for (let i = 0; i < result.length; i++) {
-                        if (result[i].id === productId) {
-                            return setProduct(result[i]);
+                        if (result[i].id === id) {
+                            setProduct(result[i]);
+                            break;
                         }
                     }
+                    return setLoading(false);
                 }, 1500);
 
             })
@@ -47,7 +49,7 @@ const ItemDetail = ({ onAdd, onRemove }) => {
                 handleErrorOpen();
                 console.log(error);
             });
-    }, [productId]);
+    }, [id]);
     return (
         <>
             {loading && (
@@ -69,6 +71,9 @@ const ItemDetail = ({ onAdd, onRemove }) => {
                         Sorry, something happened loading the products
                     </Alert>
                 </Snackbar>
+            )}
+            {(!loading && (Object.keys(product).length === 0)) && (
+                <Navigate to="/notFound" replace={true} />
             )}
             {!loading && (
                 <Box sx={{ flexGrow: 1 }}>

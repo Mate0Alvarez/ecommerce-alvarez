@@ -9,6 +9,7 @@ const CategoryListContainer = ({ onAdd, onRemove }) => {
     const { id } = useParams();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetch("https://mocki.io/v1/78ba0041-2320-4720-adee-d275ba062cd2")
             .then((response) => response.json())
             .then((result) => {

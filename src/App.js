@@ -34,11 +34,11 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <NavBar cartQuantity={cartQuantity} />
         <Routes>
-          <Route exact path="/" element={<MainLanding onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
-          <Route exact path="/pieces" element={<ItemListContainer onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
-          <Route exact path="/categories" element={<CategoriesListContainer />} />
-          <Route exact path="/category/:id" element={<CategoryListContainer onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
-          <Route exact path="/item/:productId" element={<ItemDetailContainer onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
+          <Route path="/" element={<MainLanding onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
+          <Route path="/pieces" element={<ItemListContainer onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
+          <Route path="/categories" element={<CategoriesListContainer />} />
+          <Route path="/category/:id" element={<CategoryListContainer onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
+          <Route path="/item/:id" element={<ItemDetailContainer onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

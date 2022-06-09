@@ -117,7 +117,7 @@ export default function NavBarMobile({ navPages, cartQuantity }) {
         <List>
           {navPages.map((nav, index) => (
             <ListItem key={index} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={handleDrawerClose}>
                 <ListItemIcon>{nav.icon}</ListItemIcon>
                 <ListItemText primary={nav.link} />
               </ListItemButton>

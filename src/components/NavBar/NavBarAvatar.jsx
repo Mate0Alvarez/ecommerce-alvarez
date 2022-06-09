@@ -10,6 +10,9 @@ const NavBarAvatar = ({ avatarSettings }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
+    if (avatarSettings.length === 0) {
+      return;
+    }
     setAnchorElUser(event.currentTarget);
   };
 
