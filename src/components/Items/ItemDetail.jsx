@@ -34,12 +34,12 @@ const ItemDetail = ({ onAdd, onRemove }) => {
             .then((response) => response.json())
             .then((result) => {
                 setTimeout(() => {
-                    for (let i = 0; i < result.length; i++) {
-                        if (result[i].id === id) {
-                            setProduct(result[i]);
-                            break;
-                        }
+                    const productFiltered = result.filter(product => product.id === id);
+
+                    if(Object.keys(productFiltered).length !== 0){
+                        setProduct(productFiltered[0]);
                     }
+
                     return setLoading(false);
                 }, 1500);
 
@@ -75,7 +75,7 @@ const ItemDetail = ({ onAdd, onRemove }) => {
             {(!loading && (Object.keys(product).length === 0)) && (
                 <Navigate to="/notFound" replace={true} />
             )}
-            {!loading && (
+            {(!loading && (Object.keys(product).length !== 0)) && (
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2} sx={{display:"flex",justifyContent:"center", alignItems:"center", mt:3}}>
                         <Grid item sm={10} md={4} sx={{display:"flex",justifyContent:"center", alignItems:"center"}}>

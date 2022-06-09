@@ -37,12 +37,9 @@ export default function ItemList({ onAdd, onRemove, category }) {
                         setLoading(false);
                         return setProducts(result);
                     }
-                    let categoryProducts = [];
-                    for (let i = 0; i < result.length; i++) {
-                        if (result[i].category_id === +category) {
-                            categoryProducts.push(result[i]);
-                        }
-                    }
+
+                    const categoryProducts = result.filter(product => product.category_id === +category);
+                    
                     setLoading(false);
                     return setProducts(categoryProducts);
                 }, 1500);

@@ -13,11 +13,12 @@ const CategoryListContainer = ({ onAdd, onRemove }) => {
         fetch("https://mocki.io/v1/78ba0041-2320-4720-adee-d275ba062cd2")
             .then((response) => response.json())
             .then((result) => {
-                for (let i = 0; i < result.length; i++) {
-                    if (result[i].id === +id) {
-                        return setCategory(result[i]);
-                    }
+                const categoryFiltered = result.filter(category => category.id === +id);
+
+                if (Object.keys(categoryFiltered).length !== 0) {
+                    setCategory(categoryFiltered[0]);
                 }
+
             })
             .catch((error) => {
                 console.log(error);
