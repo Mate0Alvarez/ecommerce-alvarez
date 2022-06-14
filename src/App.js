@@ -9,6 +9,7 @@ import CategoriesListContainer from './components/Categories/CategoriesListConta
 import NavBar from "./components/NavBar/NavBar";
 import Footer from './components/Footer/Footer';
 import NotFound from "./components/NotFound/NotFound";
+import Cart from './components/Cart/Cart';
 
 const darkTheme = createTheme({
   palette: {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/categories" element={<CategoriesListContainer />} />
           <Route path="/category/:id" element={<CategoryListContainer onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
           <Route path="/item/:id" element={<ItemDetailContainer onAdd={handleAddCartQuantity} onRemove={handleRemoveCartQuantity} />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
