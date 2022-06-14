@@ -1,104 +1,62 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Navigate  } from "react-router-dom";
+import React from "react";
 import Grid from "@mui/material/Grid";
-import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import ItemDetailDescription from "./ItemDetailDescription";
 
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-const ItemDetail = ({ onAdd, onRemove }) => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const [product, setProduct] = useState({});
-    const { id }  = useParams();
-
-    const handleErrorOpen = () => {
-        setError(true);
-    };
-    const handleErrorClose = (event, reason) => {
-        if (reason === "clickaway") {
-            return;
-        }
-        setError(false);
-    };
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        fetch("https://mocki.io/v1/e610ac09-f815-4219-8b0f-32d73743e81d")
-            .then((response) => response.json())
-            .then((result) => {
-                setTimeout(() => {
-                    const productFiltered = result.filter(product => product.id === id);
-
-                    if(Object.keys(productFiltered).length !== 0){
-                        setProduct(productFiltered[0]);
-                    }
-
-                    return setLoading(false);
-                }, 1500);
-
-            })
-            .catch((error) => {
-                setLoading(false);
-                handleErrorOpen();
-                console.log(error);
-            });
-    }, [id]);
+const ItemDetail = ({ product, onAdd, onRemove }) => {
     return (
-        <>
-            {loading && (
-                <Box sx={{ mt: "55px", display: "flex" }}>
-                    <CircularProgress color="info" />
-                </Box>
-            )}
-            {error && (
-                <Snackbar
-                    open={error}
-                    autoHideDuration={5000}
-                    onClose={handleErrorClose}
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid
+                container
+                spacing={2}
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    mt: 3,
+                }}
+            >
+                <Grid
+                    item
+                    sm={10}
+                    md={4}
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
                 >
-                    <Alert
-                        onClose={handleErrorClose}
-                        severity="error"
-                        sx={{ width: "100%" }}
-                    >
-                        Sorry, something happened loading the products
-                    </Alert>
-                </Snackbar>
-            )}
-            {(!loading && (Object.keys(product).length === 0)) && (
-                <Navigate to="/notFound" replace={true} />
-            )}
-            {(!loading && (Object.keys(product).length !== 0)) && (
-                <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2} sx={{display:"flex",justifyContent:"center", alignItems:"center", mt:3}}>
-                        <Grid item sm={10} md={4} sx={{display:"flex",justifyContent:"center", alignItems:"center"}}>
-                            <Box
-                                sx={{
-                                    width:{
-                                        xs:"90%",
-                                        sm:400
-                                    }
-                                }}
-                                component="img"
-                                alt={product.title}
-                                src={product.pictureUrl}
-                            />
-                        </Grid>
-                        <Grid item sm={10} md={4} sx={{display:"flex",justifyContent:"center", alignItems:"center"}}>
-                            <ItemDetailDescription product={product} onAdd={onAdd} onRemove={onRemove} />
-                        </Grid>
-                    </Grid>
-                </Box>
-            )}
-        </>
-    )
-}
+                    <Box
+                        sx={{
+                            width: {
+                                xs: "90%",
+                                sm: 400,
+                            },
+                        }}
+                        component="img"
+                        alt={product.title}
+                        src={product.pictureUrl}
+                    />
+                </Grid>
+                <Grid
+                    item
+                    sm={10}
+                    md={4}
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <ItemDetailDescription
+                        product={product}
+                        onAdd={onAdd}
+                        onRemove={onRemove}
+                    />
+                </Grid>
+            </Grid>
+        </Box>
+    );
+};
 
-export default ItemDetail
+export default ItemDetail;

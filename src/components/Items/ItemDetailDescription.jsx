@@ -9,6 +9,7 @@ import MuiAlert from "@mui/material/Alert";
 import ShoppingCartRounded from "@mui/icons-material/ShoppingCartRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ItemCount from "./ItemCount";
+import { Link } from "react-router-dom";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -24,7 +25,7 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
         setStockError(true);
     };
 
-    const handleCloseStockError = (event, reason) => {
+    const handleCloseStockError = (_event, reason) => {
         if (reason === "clickaway") {
             return;
         }
@@ -58,13 +59,13 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
     return (
         <Card
             sx={{
-                height: {sm:"unset", md:400},
-                width: {xs:"90%",sm:400},
+                height: { sm: "unset", md: 400 },
+                width: { xs: "90%", sm: 400 },
                 padding: "0 10px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "start",
-                justifyContent: "start"
+                justifyContent: "start",
             }}
         >
             <CardContent sx={{ mt: 1 }}>
@@ -88,7 +89,7 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
                             removeItem={handleRemoveItem}
                         />
                         <Button
-                            sx={{width:"60%"}}
+                            sx={{ width: "60%" }}
                             variant="outlined"
                             color="info"
                             startIcon={<ShoppingCartRounded />}
@@ -98,14 +99,32 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
                         </Button>
                     </>
                 ) : (
-                    <Button
-                        variant="contained"
-                        color="warning"
-                        startIcon={<DeleteIcon />}
-                        onClick={handleRemove}
-                    >
-                        Remove
-                    </Button>
+                    <>
+                        <Button
+                            variant="contained"
+                            color="warning"
+                            startIcon={<DeleteIcon />}
+                            onClick={handleRemove}
+                        >
+                            Remove
+                        </Button>
+                        <Link
+                            to="/cart"
+                            style={{
+                                textDecoration: "none",
+                                color: "unset",
+                                marginLeft: "5px",
+                            }}
+                        >
+                            <Button
+                                variant="contained"
+                                color="info"
+                                startIcon={<ShoppingCartRounded />}
+                            >
+                                See full cart
+                            </Button>
+                        </Link>
+                    </>
                 )}
             </CardActions>
             <Snackbar

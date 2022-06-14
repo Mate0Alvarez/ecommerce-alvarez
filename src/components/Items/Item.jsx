@@ -27,7 +27,7 @@ export default function Item({ product, onAdd, onRemove }) {
     setStockError(true);
   };
 
-  const handleCloseStockError = (event, reason) => {
+  const handleCloseStockError = (_event, reason) => {
     if (reason === "clickaway") {
       return;
     }
@@ -100,24 +100,42 @@ export default function Item({ product, onAdd, onRemove }) {
             >
               Add to Cart
             </Button>
-            <Button size="small" color="info">
-              <Link
-                to={detailUrl}
-                style={{ textDecoration: "none", color: "unset" }}
-              >
+            <Link
+              to={detailUrl}
+              style={{ textDecoration: "none", color: "unset", marginLeft: "5px" }}
+            >
+              <Button size="small" color="info">
                 See More
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </>
         ) : (
-          <Button
-            variant="contained"
-            color="warning"
-            startIcon={<DeleteIcon />}
-            onClick={handleRemove}
-          >
-            Remove
-          </Button>
+          <>
+            <Button
+              variant="contained"
+              color="warning"
+              startIcon={<DeleteIcon />}
+              onClick={handleRemove}
+            >
+              Remove
+            </Button>
+            <Link
+              to="/cart"
+              style={{
+                textDecoration: "none",
+                color: "unset",
+                marginLeft: "5px",
+              }}
+            >
+              <Button
+                variant="contained"
+                color="info"
+                startIcon={<ShoppingCartRounded />}
+              >
+                See full cart
+              </Button>
+            </Link>
+          </>
         )}
       </CardActions>
       <Snackbar

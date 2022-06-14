@@ -20,7 +20,7 @@ export default function ItemList({ onAdd, onRemove, category }) {
         setError(true);
     };
 
-    const handleErrorClose = (event, reason) => {
+    const handleErrorClose = (_event, reason) => {
         if (reason === "clickaway") {
             return;
         }
@@ -44,10 +44,10 @@ export default function ItemList({ onAdd, onRemove, category }) {
                     return setProducts(categoryProducts);
                 }, 1500);
             })
-            .catch((error) => {
+            .catch((err) => {
                 setLoading(false);
                 handleErrorOpen();
-                console.log(error);
+                console.log(err);
             });
     }, [category]);
 
