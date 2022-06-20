@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import ItemListContainer from "./ItemListContainer";
 
-const CategoryListContainer = ({ onAdd, onRemove }) => {
+const CategoryListContainer = () => {
     const [category, setCategory] = useState({});
     const { id } = useParams();
 
@@ -40,7 +40,7 @@ const CategoryListContainer = ({ onAdd, onRemove }) => {
                 alt={category.name}
                 src={category.banner_image}
             />
-            <ItemListContainer onAdd={onAdd} onRemove={onRemove} category={id} />
+            <ItemListContainer category={id} />
         </Container>
     )
 }

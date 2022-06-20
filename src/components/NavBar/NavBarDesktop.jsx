@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import CartWidget from "./CartWidget";
 import NavBarAvatar from "./NavBarAvatar";
 
-const NavBarDesktop = ({ pages, settings, cartQuantity }) => {
+const NavBarDesktop = ({ pages, settings }) => {
   return (
     <Toolbar
       disableGutters
@@ -44,7 +44,7 @@ const NavBarDesktop = ({ pages, settings, cartQuantity }) => {
         }}
       >
         <Box>
-          <CartWidget quantity={cartQuantity} />
+          <CartWidget />
         </Box>
         <Box>
           <NavBarAvatar avatarSettings={settings} />

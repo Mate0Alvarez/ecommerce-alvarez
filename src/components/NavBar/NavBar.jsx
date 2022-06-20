@@ -34,7 +34,7 @@ const pages = [
 ];
 const settings = ["Profile", "Logout"];
 
-const NavBar = ({cartQuantity}) => {
+const NavBar = () => {
   return (
     <>
       <CssBaseline />
@@ -45,7 +45,7 @@ const NavBar = ({cartQuantity}) => {
               display: { sm: "flex", md: "none" },
             }}
           >
-            <NavBarMobile navPages={pages} cartQuantity={cartQuantity} />
+            <NavBarMobile navPages={pages}/>
           </Box>
           <Box
             sx={{
@@ -55,7 +55,6 @@ const NavBar = ({cartQuantity}) => {
             <NavBarDesktop
               pages={pages}
               settings={settings}
-              cartQuantity={cartQuantity}
             />
           </Box>
         </Container>

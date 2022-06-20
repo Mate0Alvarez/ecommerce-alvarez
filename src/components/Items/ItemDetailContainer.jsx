@@ -12,7 +12,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const ItemDetailContainer = ({ onAdd, onRemove }) => {
+const ItemDetailContainer = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [product, setProduct] = useState({});
@@ -91,7 +91,7 @@ const ItemDetailContainer = ({ onAdd, onRemove }) => {
                     <Navigate to="/notFound" replace={true} />
                 )}
                 {!loading && (
-                    <ItemDetail product={product} onAdd={onAdd} onRemove={onRemove} />
+                    <ItemDetail product={product} />
                 )}
             </Grid>
         </Container>

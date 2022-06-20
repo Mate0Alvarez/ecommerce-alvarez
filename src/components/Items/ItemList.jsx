@@ -11,7 +11,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function ItemList({ onAdd, onRemove, category }) {
+export default function ItemList({ category }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [products, setProducts] = useState([]);
@@ -89,7 +89,7 @@ export default function ItemList({ onAdd, onRemove, category }) {
                         }}
                         key={product.id}
                     >
-                        <Item product={product} onAdd={onAdd} onRemove={onRemove} />
+                        <Item product={product} />
                     </Grid>
                 ))}
         </>

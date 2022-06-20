@@ -26,9 +26,9 @@ function OpenBannerDesktop() {
                 mt: { sm: "105px", xs: "55px", md: "15px" },
             }}>
             <Carousel showThumbs={false} showStatus={false} showArrows={false} emulateTouch={true} transitionTime={1500} autoPlay={true} interval={6500}>
-                {categories.map((category, index) =>
+                {categories.map((category) =>
                 (
-                    <Link to={("/category/") + category.id} key={index}>
+                    <Link to={("/category/") + category.id} key={category.id}>
                         <div>
                             <img src={category.banner_image} alt={category.name} />
                         </div>

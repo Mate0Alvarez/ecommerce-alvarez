@@ -1,4 +1,6 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { MyContext } from "../../context/CartContext";
 import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,15 +9,17 @@ import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import ShoppingCartRounded from "@mui/icons-material/ShoppingCartRounded";
 
-const cartSettings = ["See full cart", "Check Out"];
 
-function CartWidget({ quantity }) {
+function CartWidget() {
   const [cartMenu, setCartMenu] = useState(null);
   const [emptyCartMenu, setEmptyCartMenu] = useState(null);
 
+  const { cartQuantity } = useContext(MyContext);
+
   const handleOpenCartMenu = (event) => {
-    if(quantity === 0){
+    if (cartQuantity === 0) {
       return setEmptyCartMenu(event.currentTarget);
     }
     return setCartMenu(event.currentTarget);
@@ -29,7 +33,7 @@ function CartWidget({ quantity }) {
     <>
       <Tooltip title="Shopping cart" style={{ cursor: "pointer" }}>
         <IconButton onClick={handleOpenCartMenu}>
-          <Badge badgeContent={quantity} color="info">
+          <Badge badgeContent={cartQuantity} color="info">
             <ShoppingCartOutlinedIcon color="action" />
           </Badge>
         </IconButton>
@@ -50,9 +54,9 @@ function CartWidget({ quantity }) {
         open={Boolean(emptyCartMenu)}
         onClose={handleCloseCartMenu}
       >
-      <MenuItem onClick={handleCloseCartMenu}>
-        <Typography textAlign="center" sx={{width:170,display:"flex",justifyContent:"space-around", alignItems:"center"}}><span>Your cart is empty</span><SentimentVeryDissatisfiedIcon/></Typography>
-      </MenuItem>
+        <MenuItem onClick={handleCloseCartMenu}>
+          <Typography textAlign="center" sx={{ width: 170, display: "flex", justifyContent: "space-around", alignItems: "center" }}><span>Your cart is empty</span><SentimentVeryDissatisfiedIcon /></Typography>
+        </MenuItem>
       </Menu>
       <Menu
         sx={{ mt: "45px" }}
@@ -70,11 +74,21 @@ function CartWidget({ quantity }) {
         open={Boolean(cartMenu)}
         onClose={handleCloseCartMenu}
       >
-        {cartSettings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseCartMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
-        ))}
+        <MenuItem onClick={handleCloseCartMenu}>
+          <Typography textAlign="center" sx={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
+            <Link
+              to="/cart"
+              style={{
+                textDecoration: "none",
+                color: "unset",
+                display: "flex",
+                justifyContent: "space-around",
+                width: "120px",
+              }}
+            ><ShoppingCartRounded />Checkout
+            </Link>
+          </Typography>
+        </MenuItem>
       </Menu>
     </>
   );

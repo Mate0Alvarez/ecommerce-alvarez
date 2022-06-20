@@ -16,6 +16,8 @@ export default function ItemCount({
   addItem,
   removeItem,
 }) {
+  const [open, setOpen] = useState(false);
+  
   const addQuantity = () => {
     if (initial < stock) {
       addItem();
@@ -30,7 +32,7 @@ export default function ItemCount({
     }
   };
 
-  const [open, setOpen] = useState(false);
+
 
   const handleOpen = () => {
     setOpen(true);

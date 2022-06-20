@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -10,15 +10,18 @@ import ShoppingCartRounded from "@mui/icons-material/ShoppingCartRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ItemCount from "./ItemCount";
 import { Link } from "react-router-dom";
+import { MyContext } from "../../context/CartContext";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
-    const [showAdd, setShowAdd] = useState(true);
+const ItemDetailDescription = ({ product }) => {
+    const { onAdd, onRemove, isInCart } = useContext(MyContext);
+    const [showAdd, setShowAdd] = useState(!isInCart(product.id));
     const [countItem, setCountItems] = useState(1);
     const [stockError, setStockError] = useState(false);
+
     const { title, description_long, price, stock } = product;
 
     const handleOpenStockError = () => {
@@ -35,7 +38,8 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
     const handleAddToCart = () => {
         if (stock >= countItem) {
             setShowAdd(false);
-            onAdd(countItem);
+            product.quantity = countItem;
+            onAdd(product);
         } else {
             handleOpenStockError();
         }
@@ -43,7 +47,7 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
 
     const handleRemove = () => {
         setShowAdd(true);
-        onRemove(countItem);
+        onRemove(product.id);
     };
 
     const handleAddItem = () => {
@@ -121,7 +125,7 @@ const ItemDetailDescription = ({ product, onAdd, onRemove }) => {
                                 color="info"
                                 startIcon={<ShoppingCartRounded />}
                             >
-                                See full cart
+                                Checkout
                             </Button>
                         </Link>
                     </>
