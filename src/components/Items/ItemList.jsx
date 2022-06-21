@@ -1,11 +1,10 @@
 import MuiAlert from "@mui/material/Alert";
 import { Navigate  } from "react-router-dom";
-import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Snackbar from "@mui/material/Snackbar";
 import React, { useEffect, useState } from "react";
 import Item from "./Item";
+import CircularLoading from "../Utils/CircularLoading";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -53,11 +52,7 @@ export default function ItemList({ category }) {
 
     return (
         <>
-            {loading && (
-                <Box sx={{ mt: "55px", display: "flex" }}>
-                    <CircularProgress color="info" />
-                </Box>
-            )}
+            {loading && <CircularLoading />}
             {error && (
                 <Snackbar
                     open={error}

@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 
 export const MyContext = createContext();
 
@@ -6,20 +6,23 @@ const CartContext = ({ children }) => {
     const [addedProducts, setaddedProducts] = useState([]);
     const [cartQuantity, setCartQuantity] = useState(0);
 
+    useEffect(() => {
+        getCartFromLocalStorage();
+        getCartQuantityFromLocalStorage();
+    }, []);
+
     const handleAddProdcutToCart = (product) => {
         if (!isInCart(product.id)) {
             addedProducts.push(product);
-            setaddedProducts(addedProducts);
-            setCartQuantity(cartQuantity + product.quantity);
+            setCart(addedProducts, (cartQuantity + product.quantity));
         }
     }
 
     const handleRemoveProductFromCart = (productId) => {
         const productToRemove = addedProducts.find(product => product.id === productId);
-        setCartQuantity(cartQuantity - productToRemove.quantity);
-
         const remainingProducts = addedProducts.filter(product => product.id !== productId);
-        setaddedProducts(remainingProducts);
+        
+        setCart(remainingProducts, (cartQuantity - productToRemove.quantity));
     }
 
     const isInCart = (id) => {
@@ -30,28 +33,42 @@ const CartContext = ({ children }) => {
     const addQuantity = (productId) => {
         const products = addedProducts.map(object => {
             if (+object.id === +productId) {
-                return {...object, quantity: +object.quantity + 1 };
+                return { ...object, quantity: +object.quantity + 1 };
             }
             return object;
         });
-        setCartQuantity(cartQuantity + 1);
-        setaddedProducts(products);
+        setCart(products, (cartQuantity + 1));
     }
 
     const removeQuantity = (productId) => {
         const products = addedProducts.map(object => {
             if (+object.id === +productId) {
-              return {...object, quantity: +object.quantity - 1};
+                return { ...object, quantity: +object.quantity - 1 };
             }
             return object;
-          });
-        setCartQuantity(cartQuantity - 1);
-        setaddedProducts(products);
+        });
+        setCart(products, (cartQuantity - 1));
     }
 
     const clear = () => {
         setaddedProducts([]);
         setCartQuantity(0);
+    }
+
+    const getCartFromLocalStorage = () => {
+        if (localStorage.getItem('cart')) {
+            setaddedProducts(JSON.parse(localStorage.getItem('cart')));
+        }
+    }
+    const getCartQuantityFromLocalStorage = () => {
+        setCartQuantity(+localStorage.getItem('cartQuantity'));
+    }
+
+    const setCart = (cart, cartCount) => {
+        setaddedProducts(cart);
+        setCartQuantity(cartCount);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cartQuantity', cartCount);
     }
 
     return (
