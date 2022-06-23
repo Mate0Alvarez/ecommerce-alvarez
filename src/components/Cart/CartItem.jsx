@@ -33,7 +33,7 @@ const CartItem = ({ product }) => {
                     <CardMedia
                         component="img"
                         sx={{ width: 250 }}
-                        image={product.pictureUrl}
+                        image={product.picture_url}
                         alt={product.title}
                     />
                     <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center", width: "100%", pr: 3 }}>
@@ -78,7 +78,7 @@ const CartItem = ({ product }) => {
                         }}
                         component="img"
                         alt={product.title}
-                        src={product.pictureUrl}
+                        src={product.picture_url}
                     />
                 </Grid>
                 <Grid item sm={12} md={9} sx={{ display: "flex", alignItems: "center" }}>

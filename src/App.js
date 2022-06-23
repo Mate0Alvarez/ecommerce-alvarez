@@ -12,15 +12,13 @@ import NotFound from "./components/NotFound/NotFound";
 import Cart from './components/Cart/Cart';
 import CartContext from './context/CartContext';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-
-
-
 function App() {
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+
   return (
     <CartContext>
       <Router>

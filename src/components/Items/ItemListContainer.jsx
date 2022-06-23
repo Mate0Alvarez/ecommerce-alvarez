@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import ItemList from "./ItemList";
 
-const ItemListContainer = ({ category = false }) => {
+const ItemListContainer = ({ category = null }) => {
   return (
     <Container
       maxWidth="xl"

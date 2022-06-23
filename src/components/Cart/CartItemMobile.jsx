@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import CardActions from "@mui/material/CardActions";
 
 const CartItemMobile = ({ product }) => {
-    const { title, pictureUrl, price, stock } = product;
+    const { title, picture_url, price, stock } = product;
     const [countItem, setCountItem] = useState(product.quantity);
     const { onRemove, addQuantity, removeQuantity } = useContext(MyContext);
 
@@ -35,7 +35,7 @@ const CartItemMobile = ({ product }) => {
                     component="img"
                     alt={title}
                     height="240"
-                    image={pictureUrl}
+                    image={picture_url}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="body1" component="div">

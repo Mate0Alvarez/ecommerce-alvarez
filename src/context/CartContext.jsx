@@ -21,7 +21,7 @@ const CartContext = ({ children }) => {
     const handleRemoveProductFromCart = (productId) => {
         const productToRemove = addedProducts.find(product => product.id === productId);
         const remainingProducts = addedProducts.filter(product => product.id !== productId);
-        
+
         setCart(remainingProducts, (cartQuantity - productToRemove.quantity));
     }
 
@@ -32,7 +32,7 @@ const CartContext = ({ children }) => {
 
     const addQuantity = (productId) => {
         const products = addedProducts.map(object => {
-            if (+object.id === +productId) {
+            if (object.id === productId) {
                 return { ...object, quantity: +object.quantity + 1 };
             }
             return object;
@@ -42,7 +42,7 @@ const CartContext = ({ children }) => {
 
     const removeQuantity = (productId) => {
         const products = addedProducts.map(object => {
-            if (+object.id === +productId) {
+            if (object.id === productId) {
                 return { ...object, quantity: +object.quantity - 1 };
             }
             return object;

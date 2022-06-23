@@ -35,7 +35,7 @@ const ItemDetail = ({ product }) => {
                         }}
                         component="img"
                         alt={product.title}
-                        src={product.pictureUrl}
+                        src={product.picture_url}
                     />
                 </Grid>
                 <Grid

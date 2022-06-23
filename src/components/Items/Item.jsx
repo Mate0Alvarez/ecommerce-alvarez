@@ -22,7 +22,7 @@ export default function Item({ product }) {
   const [showAdd, setShowAdd] = useState(!isInCart(product.id));
   const [countItem, setCountItems] = useState(1);
   const [stockError, setStockError] = useState(false);
-  const { id, title, description_short, pictureUrl, price, stock } = product;
+  const { id, title, description_short, picture_url, price, stock } = product;
   const detailUrl = `/item/${id}`;
 
 
@@ -64,7 +64,7 @@ export default function Item({ product }) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia component="img" alt={title} height="240" image={pictureUrl} />
+      <CardMedia component="img" alt={title} height="240" image={picture_url} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}

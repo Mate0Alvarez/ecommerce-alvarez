@@ -3,23 +3,15 @@ import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import ItemListContainer from "./ItemListContainer";
+import { getCategory } from "../../firebase/api";
 
 const CategoryListContainer = () => {
     const [category, setCategory] = useState({});
     const { id } = useParams();
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        fetch("https://mocki.io/v1/78ba0041-2320-4720-adee-d275ba062cd2")
-            .then((response) => response.json())
-            .then((result) => {
-                const categoryFiltered = result.filter(category => category.id === +id);
-
-                if (Object.keys(categoryFiltered).length !== 0) {
-                    setCategory(categoryFiltered[0]);
-                }
-
-            })
+        getCategory(id)
+            .then(category => setCategory(category))
             .catch((error) => {
                 console.log(error);
             });

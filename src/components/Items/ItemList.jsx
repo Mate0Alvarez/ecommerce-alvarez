@@ -1,8 +1,9 @@
+import React, { useEffect, useState } from "react";
+import { getProducts } from '../../firebase/api';
 import MuiAlert from "@mui/material/Alert";
 import { Navigate  } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Snackbar from "@mui/material/Snackbar";
-import React, { useEffect, useState } from "react";
 import Item from "./Item";
 import CircularLoading from "../Utils/CircularLoading";
 
@@ -13,7 +14,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function ItemList({ category }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [products, setProducts] = useState([]);
+    const [items, setItems] = useState([]);
 
     const handleErrorOpen = () => {
         setError(true);
@@ -28,26 +29,15 @@ export default function ItemList({ category }) {
     };
 
     useEffect(() => {
-        fetch("https://mocki.io/v1/e610ac09-f815-4219-8b0f-32d73743e81d")
-            .then((response) => response.json())
-            .then((result) => {
-                setTimeout(() => {
-                    if (category === false) {
-                        setLoading(false);
-                        return setProducts(result);
-                    }
-
-                    const categoryProducts = result.filter(product => product.category_id === +category);
-                    
-                    setLoading(false);
-                    return setProducts(categoryProducts);
-                }, 1500);
-            })
-            .catch((err) => {
-                setLoading(false);
-                handleErrorOpen();
-                console.log(err);
-            });
+        setLoading(true);
+        getProducts(category)
+        .then(itemsResult => {
+            if (itemsResult === null) {
+                return handleErrorOpen();
+            }
+            setItems(itemsResult);
+            setLoading(false);
+        })
     }, [category]);
 
     return (
@@ -68,11 +58,11 @@ export default function ItemList({ category }) {
                     </Alert>
                 </Snackbar>
             )}
-            {(!loading && (products.length === 0)) && (
+            {(!loading && (items.length === 0)) && (
                 <Navigate to="/notFound" replace={true} />
             )}
-            {products &&
-                products.map((product) => (
+            {items &&
+                items.map((product) => (
                     <Grid
                         item
                         sm={6}

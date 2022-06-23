@@ -50,10 +50,10 @@ const Cart = () => {
           </Grid>
           {addedProducts.length !== 0 ? (
             addedProducts.map((product) => (
-              <>
-                <CartItem product={product} key={product.id} />
-                <CartItemMobile product={product} key={product.id} />
-              </>
+              <Box item xs={12} key={product.id}>
+                <CartItem product={product}  />
+                <CartItemMobile product={product} />
+              </Box>
             ))
           ) : (
             <Grid item xs={12}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getCategories } from '../../firebase/api';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import Container from "@mui/material/Container";
@@ -8,8 +9,7 @@ function OpenBannerDesktop() {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch("https://mocki.io/v1/78ba0041-2320-4720-adee-d275ba062cd2")
-            .then((response) => response.json())
+        getCategories()
             .then((result) => {
                 setCategories(result);
             })
@@ -28,7 +28,7 @@ function OpenBannerDesktop() {
             <Carousel showThumbs={false} showStatus={false} showArrows={false} emulateTouch={true} transitionTime={1500} autoPlay={true} interval={6500}>
                 {categories.map((category) =>
                 (
-                    <Link to={("/category/") + category.id} key={category.id}>
+                    <Link to={("/category/") + category.key} key={category.id}>
                         <div>
                             <img src={category.banner_image} alt={category.name} />
                         </div>
