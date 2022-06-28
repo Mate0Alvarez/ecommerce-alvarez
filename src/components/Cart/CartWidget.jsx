@@ -4,19 +4,22 @@ import { MyContext } from "../../context/CartContext";
 import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import ShoppingCartRounded from "@mui/icons-material/ShoppingCartRounded";
-
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import NavBarCartItem from "./NavBarCartItem";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function CartWidget() {
   const [cartMenu, setCartMenu] = useState(null);
   const [emptyCartMenu, setEmptyCartMenu] = useState(null);
 
-  const { cartQuantity } = useContext(MyContext);
+  const { cartQuantity, addedProducts, clear } = useContext(MyContext);
 
   const handleOpenCartMenu = (event) => {
     if (cartQuantity === 0) {
@@ -29,6 +32,14 @@ function CartWidget() {
     setCartMenu(null);
     setEmptyCartMenu(null);
   };
+
+  const handleClearCart = () => {
+    handleCloseCartMenu();
+    setTimeout(() => {
+      clear();
+    }, 100); 
+  }
+  
   return (
     <>
       <Tooltip title="Shopping cart" style={{ cursor: "pointer" }}>
@@ -55,7 +66,18 @@ function CartWidget() {
         onClose={handleCloseCartMenu}
       >
         <MenuItem onClick={handleCloseCartMenu}>
-          <Typography textAlign="center" sx={{ width: 170, display: "flex", justifyContent: "space-around", alignItems: "center" }}><span>Your cart is empty</span><SentimentVeryDissatisfiedIcon /></Typography>
+          <Typography
+            textAlign="center"
+            sx={{
+              width: 170,
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <span>Your cart is empty</span>
+            <SentimentVeryDissatisfiedIcon />
+          </Typography>
         </MenuItem>
       </Menu>
       <Menu
@@ -74,20 +96,45 @@ function CartWidget() {
         open={Boolean(cartMenu)}
         onClose={handleCloseCartMenu}
       >
-        <MenuItem onClick={handleCloseCartMenu}>
-          <Typography textAlign="center" sx={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
-            <Link
-              to="/cart"
-              style={{
-                textDecoration: "none",
-                color: "unset",
-                display: "flex",
-                justifyContent: "space-around",
-                width: "120px",
-              }}
-            ><ShoppingCartRounded />Checkout
-            </Link>
-          </Typography>
+        <MenuItem>
+          <Grid container sx={{ width: 310 }} spacing={2}>
+            {addedProducts.map((product) => (
+              <Grid item xs={12} key={product.id}>
+                <NavBarCartItem product={product} />
+              </Grid>
+            ))}
+            <Grid item container xs={12} spacing={2}>
+              <Grid item xs={6}>
+                <Button
+                  variant="text"
+                  color="error"
+                  startIcon={<DeleteIcon />}
+                  onClick={handleClearCart}
+                >
+                  Clear cart
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Link
+                  to="/cart"
+                  style={{
+                    textDecoration: "none",
+                    color: "unset",
+                    marginLeft: "5px",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    startIcon={<ShoppingCartRounded />}
+                    onClick={handleCloseCartMenu}
+                  >
+                    Checkout
+                  </Button>
+                </Link>
+              </Grid>
+            </Grid>
+          </Grid>
         </MenuItem>
       </Menu>
     </>

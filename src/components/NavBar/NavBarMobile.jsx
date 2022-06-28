@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -15,9 +15,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import NavBarAvatar from "./NavBarAvatar";
-import CartWidget from "./CartWidget";
+import CartWidget from "../Cart/CartWidget";
 
 const drawerWidth = '100vw';
 
@@ -49,7 +47,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function NavBarMobile({ navPages, cartQuantity }) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -58,6 +56,7 @@ export default function NavBarMobile({ navPages, cartQuantity }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -125,24 +124,6 @@ export default function NavBarMobile({ navPages, cartQuantity }) {
           ))}
         </List>
         <Divider />
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <NavBarAvatar avatarSettings={[]} />
-              </ListItemIcon>
-              <ListItemText primary={"My profile"} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <LogoutOutlinedIcon sx={{ ml: 1 }} />
-              </ListItemIcon>
-              <ListItemText primary={"Logout"} />
-            </ListItemButton>
-          </ListItem>
-        </List>
         <DrawerHeader />
       </Drawer>
     </Box>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -19,7 +19,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function Item({ product }) {
   const {onAdd , onRemove, isInCart } = useContext(MyContext);
-  const [showAdd, setShowAdd] = useState(!isInCart(product.id));
+  const [showAdd, setShowAdd] = useState(true);
   const [countItem, setCountItems] = useState(1);
   const [stockError, setStockError] = useState(false);
   const { id, title, description_short, picture_url, price, stock } = product;
@@ -61,6 +61,11 @@ export default function Item({ product }) {
       setCountItems(countItem - 1);
     }
   };
+
+  useEffect(() => {
+    setShowAdd(!isInCart(product.id))
+  }, [product, isInCart])
+  
 
   return (
     <Card sx={{ maxWidth: 345 }}>

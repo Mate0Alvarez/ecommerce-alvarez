@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState, useContext }  from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from '@mui/material/IconButton';
 import ItemCount from "../Items/ItemCount";
-import { useState, useContext } from "react";
 import { MyContext } from "../../context/CartContext";
 import Grid from "@mui/material/Grid";
 import CardActions from "@mui/material/CardActions";
@@ -29,7 +28,7 @@ const CartItemMobile = ({ product }) => {
     }
 
     return (
-        <Grid item xs={12} sm={6} sx={{ display: { sm: "block", md: "none" } }}>
+        <Grid item xs={12} sx={{ display: { sm: "block", md: "none" } }}>
             <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                     component="img"

@@ -3,6 +3,7 @@ import {
     doc,
     getDoc,
     getDocs,
+    addDoc,
     query,
     where,
     limit
@@ -77,3 +78,29 @@ export const getProduct = async (id) => {
         console.log("Something happended", error);
     }
 };
+
+export const saveOrder = async (order) => {
+    const ordersCollection = collection(db, 'orders');
+    try {
+        const { id } = await addDoc(ordersCollection, order)
+        return id;
+    } catch (error) {
+        console.log('Ocurrió un error', error);
+    }
+}
+
+export const getOrder = async (id) => {
+    const productRef = doc(db, "orders", id);
+
+    try {
+        const res = await getDoc(productRef);
+        if (res.exists()) {
+            const product = { id: res.id, ...res.data() };
+            return product;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.log("Something happended", error);
+    }
+}

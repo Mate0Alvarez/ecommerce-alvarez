@@ -32,7 +32,6 @@ const pages = [
     link_desktop: <Button sx={{ my: 2, color: "white", display: "block" }}><LinkWithoutDec to="/about">About us</LinkWithoutDec></Button>
   },
 ];
-const settings = ["Profile", "Logout"];
 
 const NavBar = () => {
   return (
@@ -54,7 +53,6 @@ const NavBar = () => {
           >
             <NavBarDesktop
               pages={pages}
-              settings={settings}
             />
           </Box>
         </Container>

@@ -26,8 +26,8 @@ const CartContext = ({ children }) => {
     }
 
     const isInCart = (id) => {
-        const product = addedProducts.find(product => product.id === id);
-        return (product !== undefined);
+        const item = addedProducts.find(product => product.id === id);
+        return (item !== undefined);
     }
 
     const addQuantity = (productId) => {
@@ -51,8 +51,7 @@ const CartContext = ({ children }) => {
     }
 
     const clear = () => {
-        setaddedProducts([]);
-        setCartQuantity(0);
+        setCart([],0);
     }
 
     const getCartFromLocalStorage = () => {

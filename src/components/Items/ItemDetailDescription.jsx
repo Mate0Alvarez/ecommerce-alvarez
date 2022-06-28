@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -59,6 +59,10 @@ const ItemDetailDescription = ({ product }) => {
             setCountItems(countItem - 1);
         }
     };
+
+    useEffect(() => {
+        setShowAdd(!isInCart(product.id))
+    }, [product, isInCart])
 
     return (
         <Card

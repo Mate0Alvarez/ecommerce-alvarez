@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import ItemListContainer from "./ItemListContainer";
+import ItemListContainer from "../Items/ItemListContainer";
 import { getCategory } from "../../firebase/api";
 
 const CategoryListContainer = () => {

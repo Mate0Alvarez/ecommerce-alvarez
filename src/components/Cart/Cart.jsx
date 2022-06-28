@@ -5,17 +5,20 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/system";
 import CartItem from "./CartItem";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import CartItemMobile from "./CartItemMobile";
+import Button from "@mui/material/Button";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Cart = () => {
-  const { addedProducts } = useContext(MyContext);
+  const { addedProducts, clear } = useContext(MyContext);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     let total = 0;
-    for (let i = 0; i < addedProducts.length; i++) {
-      total += addedProducts[i].quantity * addedProducts[i].price;
+    for (const product of addedProducts) {
+      total += product.quantity * product.price;
     }
     return setTotalPrice(total);
   }, [addedProducts]);
@@ -23,7 +26,7 @@ const Cart = () => {
   return (
     <>
       <Container
-        maxWidth="xl"
+        maxWidth="md"
         sx={{
           flexGrow: 1,
           width: "90%",
@@ -50,15 +53,34 @@ const Cart = () => {
           </Grid>
           {addedProducts.length !== 0 ? (
             addedProducts.map((product) => (
-              <Box item xs={12} key={product.id}>
-                <CartItem product={product}  />
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={12}
+                key={product.id}
+                sx={{ maxWidth: 1000 }}
+              >
+                <CartItem product={product} />
                 <CartItemMobile product={product} />
-              </Box>
+              </Grid>
             ))
           ) : (
             <Grid item xs={12}>
-              <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center", margin: { xs: "15px auto", sm: "0 auto" }, flexDirection: { xs: "column", sm: "row" } }}>
-                <Typography variant="h4" component="div" sx={{textAlign: {xs: "center", sm:"unset"}}}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  margin: { xs: "15px auto", sm: "0 auto" },
+                  flexDirection: { xs: "column", sm: "row" },
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  component="div"
+                  sx={{ textAlign: { xs: "center", sm: "unset" } }}
+                >
                   Hey! Your cart is empty
                 </Typography>
                 <Link to="/">
@@ -66,7 +88,7 @@ const Cart = () => {
                     component="img"
                     sx={{
                       height: "450px",
-                      margin: "0 auto"
+                      margin: "0 auto",
                     }}
                     alt="Emprty cart."
                     src="/emptyCart.png"
@@ -76,11 +98,44 @@ const Cart = () => {
             </Grid>
           )}
           {addedProducts.length !== 0 && (
-            <Grid item xs={8}>
-              <Typography variant="h6" component="div" sx={{ mt: 5 }}>
-                Total: $ {totalPrice}
-              </Typography>
-            </Grid>
+            <>
+              <Grid item xs={12} sm={7}>
+                <Typography variant="h6" component="div" sx={{ mt: 5 }}>
+                  Total: $ {totalPrice}
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={3}
+                sx={{ textAlign: { xs: "unset", sm: "right" } }}
+              >
+                <Button
+                  variant="text"
+                  color="error"
+                  startIcon={<DeleteIcon />}
+                  sx={{ mt: { xs: 2, sm: 5 } }}
+                  onClick={clear}
+                >
+                  Clear cart
+                </Button>
+              </Grid>
+              <Grid item xs={2} sx={{ textAlign: "right" }}>
+                <Link to="/checkout" style={{
+                  textDecoration: "none",
+                  color: "unset",
+                }}>
+                  <Button
+                    variant="outlined"
+                    color="success"
+                    startIcon={<CheckCircleOutlinedIcon />}
+                    sx={{ mt: { xs: 2, sm: 5 } }}
+                  >
+                    Finish
+                  </Button>
+                </Link>
+              </Grid>
+            </>
           )}
         </Grid>
       </Container>

@@ -28,7 +28,7 @@ const CartItem = ({ product }) => {
 
     return (
         <>
-            <Grid container sx={{ m: 5, mb: 1, display: { xs: "none", md: "flex" } }}>
+            <Grid container sx={{mt: 5, mb: 1, display: { xs: "none", md: "flex" }, justifyContent:"center" }}>
                 <Card sx={{ display: 'flex', width: "100%" }}>
                     <CardMedia
                         component="img"
@@ -50,7 +50,7 @@ const CartItem = ({ product }) => {
                                 </Typography>
                             </CardContent>
                         </Box>
-                        <Box sx={{ width: "300px" }}>
+                        <Box sx={{ width: "350px" }}>
                             <ItemCount
                                 stock={product.stock}
                                 initial={countItem}
@@ -66,55 +66,6 @@ const CartItem = ({ product }) => {
                     </Box>
                 </Card>
             </Grid>
-            {/* <Grid container sx={{ m: 2, display: { sm: "none", md: "flex" } }}>
-                <Grid item sm={12} md={3}>
-                    <Box
-                        sx={{
-                            width: {
-                                xs: "90%",
-                                sm: 200,
-                            },
-                            margin: "0 auto"
-                        }}
-                        component="img"
-                        alt={product.title}
-                        src={product.picture_url}
-                    />
-                </Grid>
-                <Grid item sm={12} md={9} sx={{ display: "flex", alignItems: "center" }}>
-                    <Grid container spacing={2} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Grid item xs={9} md={4}>
-                            <Typography variant="h5" component="div">{product.title}</Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {product.description_short}
-                            </Typography>
-                            <Button
-                                variant="contained"
-                                color="warning"
-                                sx={{ mt: 2 }}
-                                startIcon={<DeleteIcon />}
-                                onClick={() => onRemove(product.id)}
-                            >
-                                Remove
-                            </Button>
-                        </Grid>
-                        <Grid item xs={3} md={2} sx={{ textAlign: { xs: "right", md: "center" } }}>
-                            <Typography variant="h5" component="div">$ {product.price}</Typography>
-                        </Grid>
-                        <Grid item xs={9} md={4} sx={{ textAlign: "center" }}>
-                            <ItemCount
-                                stock={product.stock}
-                                initial={countItem}
-                                addItem={handleAddItem}
-                                removeItem={handleRemoveItem}
-                            />
-                        </Grid>
-                        <Grid item xs={3} md={2} sx={{ textAlign: "right" }}>
-                            <Typography variant="h5" component="div">$ {countItem * product.price}</Typography>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid> */}
         </>
     )
 }

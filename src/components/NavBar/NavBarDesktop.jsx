@@ -2,10 +2,9 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import CartWidget from "./CartWidget";
-import NavBarAvatar from "./NavBarAvatar";
+import CartWidget from "../Cart/CartWidget";
 
-const NavBarDesktop = ({ pages, settings }) => {
+const NavBarDesktop = ({ pages }) => {
   return (
     <Toolbar
       disableGutters
@@ -45,9 +44,6 @@ const NavBarDesktop = ({ pages, settings }) => {
       >
         <Box>
           <CartWidget />
-        </Box>
-        <Box>
-          <NavBarAvatar avatarSettings={settings} />
         </Box>
       </Box>
     </Toolbar>
