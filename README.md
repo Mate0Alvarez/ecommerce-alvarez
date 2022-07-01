@@ -4,11 +4,11 @@
 
 This repository contains the project created for `Coderhouse` `React JS` course.
 
-The App consists of an NTF's ecommerce in which you can filter the products according to categories, and access to see the details of each product. They can be added to the cart and then complete a form simulating a complete purchase process.
+The App consists of an NTF's ecommerce in which you can filter the products according to categories, and access to detail of each product. They can be added to the cart and then complete a form simulating a complete purchase process.
 
 Both the list of categories, as well as the products and the generated orders are stored in `Firebase`.
 
-You can visit the project deploy at [https://masterapeecommerce.web.app/](https://masterapeecommerce.web.app/)
+You can visit the deployed project at [https://masterapeecommerce.web.app/](https://masterapeecommerce.web.app/)
 
 ![test GIF.](./public/final.gif "Project view.")
 
@@ -43,7 +43,7 @@ Luego es necesario crear un proyecto en Firebase y crear dos colecciones en Fire
 ##### Item example:
 ```
 item = {
-  category:key: "1",
+  category_key: "1",
   description_long: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus ad, voluptates consectetur ut earum dolor assumenda. Reiciendis quis quas, repellat molestias, delectus rerum iusto perferendis natus quam voluptates cumque architecto!",
   description_short: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
   picture_url : "/bear1.png",
