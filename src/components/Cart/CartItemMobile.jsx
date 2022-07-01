@@ -1,4 +1,4 @@
-import React,{ useState, useContext }  from "react";
+import React, { useState, useContext } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -9,6 +9,7 @@ import ItemCount from "../Items/ItemCount";
 import { MyContext } from "../../context/CartContext";
 import Grid from "@mui/material/Grid";
 import CardActions from "@mui/material/CardActions";
+import { useNavigate } from 'react-router-dom';
 
 const CartItemMobile = ({ product }) => {
     const { title, picture_url, price, stock } = product;
@@ -27,6 +28,12 @@ const CartItemMobile = ({ product }) => {
         }
     }
 
+    const navigate = useNavigate();
+
+    const handleImageClick = () => {
+        return navigate(`/item/${product.id}`);
+    }
+
     return (
         <Grid item xs={12} sx={{ display: { sm: "block", md: "none" } }}>
             <Card sx={{ maxWidth: 345 }}>
@@ -35,6 +42,7 @@ const CartItemMobile = ({ product }) => {
                     alt={title}
                     height="240"
                     image={picture_url}
+                    onClick={handleImageClick}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="body1" component="div">

@@ -72,7 +72,7 @@ export const getProduct = async (id) => {
             const product = { id: res.id, ...res.data() };
             return product;
         } else {
-            return null;
+            return false;
         }
     } catch (error) {
         console.log("Something happended", error);
@@ -98,7 +98,7 @@ export const getOrder = async (id) => {
             const product = { id: res.id, ...res.data() };
             return product;
         } else {
-            return null;
+            return false;
         }
     } catch (error) {
         console.log("Something happended", error);

@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# MasterApe
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This repository contains the project created for `Coderhouse` `React JS` course.
 
-In the project directory, you can run:
+The App consists of an NTF's ecommerce in which you can filter the products according to categories, and access to see the details of each product. They can be added to the cart and then complete a form simulating a complete purchase process.
 
-### `npm start`
+Both the list of categories, as well as the products and the generated orders are stored in `Firebase`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You can visit the project deploy at [https://masterapeecommerce.web.app/](https://masterapeecommerce.web.app/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![test GIF.](./public/final.gif "Project view.")
 
-### `npm test`
+## Technologies implemented
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase) ![SweetAlert2](https://img.shields.io/badge/Sweetalert2-%23e4ae93.svg?style=for-the-badge) ![React Responsive Carousel](https://img.shields.io/badge/React_Responsive_Carousel-CA4245?style=for-the-badge&logoColor=white)
 
-### `npm run build`
+* [React JS](https://reactjs.org/)
+* [React Router Dom](https://reactrouter.com/)
+* [Material UI](https://mui.com/)
+* [Firebase](https://firebase.google.com/)
+* [SweetAlert2](https://sweetalert2.github.io/)
+* [React Responsive Carousel](https://www.npmjs.com/package/react-responsive-carousel)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Run project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can run the project by downloading it as .zip or cloning it with:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+git clone https://github.com/Mate0Alvarez/ecommerce-alvarez.git
+cd ecommerce-alvarez
+```
 
-### `npm run eject`
+Install all dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Luego es necesario crear un proyecto en Firebase y crear dos colecciones en Firestore (una con el nombre `products` donde se ingresarán los productos, y otra con el nombre `categories` para almacenar las categorías que corresponden a los productos creados y se mostrarán en la NavBar). Los items de ambas colecciones deben crearse manualmente desde Firebase.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+##### Item example:
+```
+item = {
+  category:key: "1",
+  description_long: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus ad, voluptates consectetur ut earum dolor assumenda. Reiciendis quis quas, repellat molestias, delectus rerum iusto perferendis natus quam voluptates cumque architecto!",
+  description_short: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
+  picture_url : "/bear1.png",
+  price: "500",
+  stock: "8",
+  title: "Lorem ipsum"
+}
+```
+##### Category example:
+```
+category = {
+  key: "2",
+  name: "Okay Bears",
+  banner_image : "/bears_banner.png"
+}
+```
+The `orders` collection will be created automatically when generating the first purchase order.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Once the app is available in Firebase, having loaded products and categories, rename the `.env.example` file located at the root of the project to `.env` and fill in the Firebase-provided configuration variables:
 
-## Learn More
+```
+REACT_APP_FIREBASE_API_KEY=
+REACT_APP_FIREBASE_AUTH_DOMAIN=
+REACT_APP_FIREBASE_PROJECT_ID=
+REACT_APP_FIREBASE_STORAGE_BUCKET=
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
+REACT_APP_FIREBASE_APP_ID=
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Start server with:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm start
+```
 
-### Code Splitting
+The project will run in `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Additional comments
 
-### Analyzing the Bundle Size
+### MaterialUI
+Material UI was chosen as the component library to streamline the application development and styling process, taking advantage of the possibility of extending the components through the use of themes.
+### Firebase
+The list of products, the generated orders, and the product categories was stored in Firebase.
+### LocalStorage
+LocalStorage was used to persist the users' cart on their devices in the event that they do not complete the purchase flow to improve the user experience.
+### SweetAlert2
+SweetAlert2 was chosen to get full page styled alerts and some notifications.
+### React Responsive Carousel
+The main landing carousel was powered by this npm library.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Componente ScrollToTop
+In the latest versions of React Router Dom, the scroll is no longer automatically restored when navigating between routes, so if, for example, we are looking at the list of products and scroll down the page, when navigating to another page we will be positioned at the bottom.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+To resolve this behavior, the `src/components/utils/ScrollToTop.jsx` component was implemented, which through the React Router hook `useLocation` detects the navigation between routes and restores the scroll to the top of the page.

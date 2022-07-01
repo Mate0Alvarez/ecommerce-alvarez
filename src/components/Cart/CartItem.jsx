@@ -9,6 +9,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
+import { useNavigate } from 'react-router-dom';
 
 const CartItem = ({ product }) => {
     const [countItem, setCountItem] = useState(product.quantity);
@@ -26,15 +27,22 @@ const CartItem = ({ product }) => {
         }
     }
 
+    const navigate = useNavigate();
+
+    const handleImageClick = () => {
+        return navigate(`/item/${product.id}`);
+    }
+
     return (
         <>
-            <Grid container sx={{mt: 5, mb: 1, display: { xs: "none", md: "flex" }, justifyContent:"center" }}>
+            <Grid container sx={{ mt: 5, mb: 1, display: { xs: "none", md: "flex" }, justifyContent: "center" }}>
                 <Card sx={{ display: 'flex', width: "100%" }}>
                     <CardMedia
                         component="img"
-                        sx={{ width: 250 }}
+                        sx={{ width: 250, cursor:'pointer' }}
                         image={product.picture_url}
                         alt={product.title}
+                        onClick={handleImageClick}
                     />
                     <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center", width: "100%", pr: 3 }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -45,7 +53,7 @@ const CartItem = ({ product }) => {
                                 <Typography variant="subtitle1" color="text.secondary" component="div">
                                     {product.description_short}
                                 </Typography>
-                                <Typography variant="subtitle1" color="body2" component="div" sx={{mt:2}}>
+                                <Typography variant="subtitle1" color="body2" component="div" sx={{ mt: 2 }}>
                                     {`${countItem} x $${product.price} - $${countItem * product.price}`}
                                 </Typography>
                             </CardContent>

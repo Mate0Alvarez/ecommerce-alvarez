@@ -3,13 +3,17 @@ import { Link } from "react-router-dom";
 import { getCategories } from '../../firebase/api';
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
+import CircularLoading from '../Utils/CircularLoading';
+import Grid from '@mui/material/Grid';
 
 const CategoriesListContainer = () => {
     const [categories, setCategories] = useState([]);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         getCategories()
             .then((result) => {
+                setIsLoading(false);
                 return setCategories(result);
             })
             .catch((error) => {
@@ -28,18 +32,27 @@ const CategoriesListContainer = () => {
                 minHeight: "85vh"
             }}
         >
-            {categories.map((category) => (
-                <Link to={("/category/")+category.key} key={category.id}>
-                    <Box
-                        sx={{
-                            width:"100%"
-                        }}
-                        component="img"
-                        alt={category.name}
-                        src={category.banner_image}
-                    />
-                </Link>
-            ))}
+            <Grid
+                container
+                spacing={2}
+                sx={{ justifyContent: { xs: "center" } }}
+            >
+                {isLoading && (<CircularLoading />)}
+                {categories.map((category) => (
+                    <Grid item xs={12}>
+                        <Link to={("/category/") + category.key} key={category.id}>
+                            <Box
+                                sx={{
+                                    width: "100%"
+                                }}
+                                component="img"
+                                alt={category.name}
+                                src={category.banner_image}
+                            />
+                        </Link>
+                    </Grid>
+                ))}
+            </Grid>
         </Container>
 
     );

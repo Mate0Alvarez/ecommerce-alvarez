@@ -11,7 +11,7 @@ import SnackbarPush from "../Utils/SnackbarPush";
 const ItemDetailContainer = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false)
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState(false);
     const { id } = useParams();
 
     const handleErrorOpen = () => {
@@ -22,7 +22,7 @@ const ItemDetailContainer = () => {
         setLoading(true);
         getProduct(id)
         .then(productFiltered => {
-            if (productFiltered !== undefined) {
+            if (productFiltered) {
                 setProduct(productFiltered);
             }
             return setLoading(false);
@@ -51,10 +51,10 @@ const ItemDetailContainer = () => {
             >
                 {loading && <CircularLoading />}
                 {error && <SnackbarPush textError="Sorry, something happened loading the products." severity="error" />}
-                {(!loading && product.length === 0) && (
+                {(!loading && !product) && (
                     <Navigate to="/notFound" replace={true} />
                 )}
-                {!loading && (
+                {(!loading && product) && (
                     <ItemDetail product={product} />
                 )}
             </Grid>

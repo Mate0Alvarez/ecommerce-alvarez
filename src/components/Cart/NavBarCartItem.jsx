@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,6 +12,12 @@ import IconButton from '@mui/material/IconButton';
 const NavBarCartItem = ({ product }) => {
     const { onRemove } = useContext(MyContext);
 
+    const navigate = useNavigate();
+
+    const handleImageClick = () =>{
+        return navigate(`/item/${product.id}`);
+    }
+
     return (
         <Card sx={{ display: 'flex', justifyContent: "space-between" }}>
             <CardMedia
@@ -18,6 +25,7 @@ const NavBarCartItem = ({ product }) => {
                 sx={{ width: 90 }}
                 image={product.picture_url}
                 alt={product.title}
+                onClick={handleImageClick}
             />
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>

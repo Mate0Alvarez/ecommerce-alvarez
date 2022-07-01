@@ -18,7 +18,7 @@ const Checkout = () => {
   const { addedProducts, clear } = useContext(MyContext);
   const [totalAmount, setTotalAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [orderCreated, setOrderCreated] = useState({id: 1234});
+  const [orderCreated, setOrderCreated] = useState(false)
 
   const [formErrors, setFormErrors] = useState({
     name: false,
@@ -47,23 +47,22 @@ const Checkout = () => {
   const handleBuyIt = () => {
 
     if (validateForm()) {
-
+      setOrderCreated(true);
       setIsLoading(true);
 
       const order = {
         buyer,
         cart: addedProducts,
         totalAmount,
-        status: 'GENERATED',
+        status: 'CREATED',
         timestamp: serverTimestamp()
       }
 
-      saveOrder(order).then(id => { 
-        clear();
-        setOrderCreated(true); 
+      saveOrder(order).then(id => {
+        setIsLoading(false);
         Swal.fire({
           title: 'Thank you!',
-          html: `The order has been created successfully.<br><br>Your order ID is: ${id}<br><br>We will contact you to continue with the payment of your order.`,
+          html: `The order has been created successfully.<br><br>Your order ID is: ${id}<br><br>We will contact you to continue with the payment.`,
           icon: 'success',
           confirmButtonText: 'See my order',
           showDenyButton: true,
@@ -72,7 +71,8 @@ const Checkout = () => {
           denyButtonColor: '#29b6f6',
           allowOutsideClick: false
         }).then((result) => {
-          if(result.isConfirmed){
+          clear();
+          if (result.isConfirmed) {
             return navigate(`/order/${id}`);
           }
           return navigate('/');
@@ -151,42 +151,39 @@ const Checkout = () => {
         minHeight: "70vh",
       }}
     >
-      {(!isLoading && orderCreated.length !== 0 ) ? (<Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h5" component="div" sx={{ mb: 3 }}>Personal information:</Typography>
-          <TextField name='name' label="Name" color="info" helperText={formErrors.name && "Please enter your name"} sx={{ mb: 2 }} fullWidth error={formErrors.name} onChange={handleChange} value={buyer.name} />
-          <TextField name='phone' label="Phone" color="info" helperText={formErrors.phone && "Please enter a valid phone number"} sx={{ mb: 2 }} fullWidth error={formErrors.phone} onChange={handleChange} value={buyer.phone} />
-          <TextField name='email' label="E-mail" color="info" helperText={formErrors.email && "Please enter a valid e-mail address"} sx={{ mb: 2 }} fullWidth error={formErrors.email} onChange={handleChange} value={buyer.email} />
-        </Grid>
-        <Grid item container xs={12} sm={6} spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h5" component="div">Your order:</Typography>
-          </Grid>
-          {addedProducts.map((product) => (
-            <Grid item xs={12} key={product.id}>
-              <ItemCheckout product={product} />
-            </Grid>
-          ))}
-          <Grid item xs={7} sx={{ mt: { xs: 3, sm: 1 } }}>
-            <Typography variant="h5" component="div">Total: ${totalAmount}</Typography>
-          </Grid>
-          <Grid item xs={5} sx={{ mt: { xs: 3, sm: 1 }, textAlign: "right" }}>
-            <Button
-              variant="outlined"
-              color="success"
-              startIcon={<ShoppingBagIcon />}
-              onClick={handleBuyIt}
-            >
-              But it
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>) : (<Grid item xs={12} sx={{display:"flex", justifyContent:"center"}}><CircularLoading /></Grid>)}
-      {orderCreated.length > 0 && (
+      {isLoading && (<Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}><CircularLoading /></Grid>)}
+      {!orderCreated && (
         <Grid container spacing={2}>
-          holi
-        </Grid>
-      )}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h5" component="div" sx={{ mb: 3 }}>Personal information:</Typography>
+            <TextField name='name' label="Name" color="info" helperText={formErrors.name && "Please enter your name"} sx={{ mb: 2 }} fullWidth error={formErrors.name} onChange={handleChange} value={buyer.name} />
+            <TextField name='phone' label="Phone" color="info" helperText={formErrors.phone && "Please enter a valid phone number"} sx={{ mb: 2 }} fullWidth error={formErrors.phone} onChange={handleChange} value={buyer.phone} />
+            <TextField name='email' label="E-mail" color="info" helperText={formErrors.email && "Please enter a valid e-mail address"} sx={{ mb: 2 }} fullWidth error={formErrors.email} onChange={handleChange} value={buyer.email} />
+          </Grid>
+          <Grid item container xs={12} sm={6} spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h5" component="div">Your order:</Typography>
+            </Grid>
+            {addedProducts.map((product) => (
+              <Grid item xs={12} key={product.id}>
+                <ItemCheckout product={product} />
+              </Grid>
+            ))}
+            <Grid item xs={7} sx={{ mt: { xs: 3, sm: 1 } }}>
+              <Typography variant="h5" component="div">Total: ${totalAmount}</Typography>
+            </Grid>
+            <Grid item xs={5} sx={{ mt: { xs: 3, sm: 1 }, textAlign: "right" }}>
+              <Button
+                variant="outlined"
+                color="success"
+                startIcon={<ShoppingBagIcon />}
+                onClick={handleBuyIt}
+              >
+                But it
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>)}
     </Container>
   )
 }
