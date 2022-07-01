@@ -94,7 +94,7 @@ SweetAlert2 was chosen to get full page styled alerts and some notifications.
 ### React Responsive Carousel
 The main landing carousel was powered by this npm library.
 
-### Componente ScrollToTop
+### Component ScrollToTop
 In the latest versions of React Router Dom, the scroll is no longer automatically restored when navigating between routes, so if, for example, we are looking at the list of products and scroll down the page, when navigating to another page we will be positioned at the bottom.
 
 To resolve this behavior, the `src/components/utils/ScrollToTop.jsx` component was implemented, which through the React Router hook `useLocation` detects the navigation between routes and restores the scroll to the top of the page.
