@@ -25,12 +25,7 @@ const pages = [
     icon: <AttachMoneyOutlinedIcon />,
     link: <LinkWithoutDec to="/categories">Categories</LinkWithoutDec>,
     link_desktop: <Button sx={{ my: 2, color: "white", display: "block" }}><LinkWithoutDec to="/categories">Categories</LinkWithoutDec></Button>
-  },
-  {
-    icon: <InfoOutlinedIcon />,
-    link: <LinkWithoutDec to="/about">About us</LinkWithoutDec>,
-    link_desktop: <Button sx={{ my: 2, color: "white", display: "block" }}><LinkWithoutDec to="/about">About us</LinkWithoutDec></Button>
-  },
+  }
 ];
 
 const NavBar = () => {
