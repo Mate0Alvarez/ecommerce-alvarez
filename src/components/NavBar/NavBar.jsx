@@ -9,7 +9,6 @@ import NavBarMobile from "./NavBarMobile";
 import NavBarDesktop from "./NavBarDesktop";
 import BakeryDiningOutlinedIcon from "@mui/icons-material/BakeryDiningOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const LinkWithoutDec = (props)=>{
   return <Link {...props} style={{textDecoration:"none", color:"unset"}}></Link>
